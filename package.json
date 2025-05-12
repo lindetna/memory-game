@@ -1,0 +1,10 @@
+{
+  "name": "memory-game",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Capsens",
+  "license": "MIT",
+  "dependencies": {
+    "@hotwired/stimulus": "^3.2.2"
+  }
+}
