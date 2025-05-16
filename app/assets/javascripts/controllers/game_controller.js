@@ -2,17 +2,31 @@ class GameController extends Stimulus.Controller {
   static targets = ["card"]
 
   connect() {
-
+    this.counter = 0;
   }
 
   flipCard(event) {
     const card = event.currentTarget;
-    const cardFront = card.querySelector('.flip-card-front')
-    const cardBack = card.querySelector('.flip-card-back')
+    card.classList.add('flipped');
+    this.counter++;
 
-    cardFront.classList.remove('flip-card-front')
-    cardFront.classList.add('flip-card-back');
-    cardBack.classList.remove('flip-card-back')
-    cardBack.classList.add('flip-card-front'); 
+    if (this.counter == 2) {
+      const flippedCards = this.cardTargets.filter(card => {
+        return card.classList.contains('flipped') && !card.classList.contains('odd');
+      });
+
+      if (
+        flippedCards[0].querySelector('.flip-card-back img').dataset.value ==
+          flippedCards[1].querySelector('.flip-card-back img').dataset.value
+      ) {
+        flippedCards.forEach(card => card.classList.add('odd'));
+      } else {
+        setTimeout(() => {
+          flippedCards.forEach(card => card.classList.remove('flipped'));
+        }, 1000);
+
+      }
+      this.counter = 0;
+    }
   }
 }

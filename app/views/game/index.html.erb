@@ -1,5 +1,7 @@
 <div class="game-container">
   <div class="cards-container" data-controller="game">
-    <%= render(partial: "shared/card") %>
+    <% @card_values.each do |value| %>
+      <%= render(partial: "shared/card", locals: {value: value}) %>
+    <% end %>
   </div>
 </div>
