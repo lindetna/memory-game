@@ -20,13 +20,26 @@ class GameController extends Stimulus.Controller {
           flippedCards[1].querySelector('.flip-card-back img').dataset.value
       ) {
         flippedCards.forEach(card => card.classList.add('odd'));
+
+        if (this.cardTargets.every(card => card.classList.contains('odd'))) {
+          this.cardTargets.forEach(card => {
+            this.flipTimeout(card);
+          });
+        }
       } else {
         setTimeout(() => {
           flippedCards.forEach(card => card.classList.remove('flipped'));
         }, 1000);
-
       }
+
       this.counter = 0;
     }
+  }
+
+  flipTimeout(card) {
+    setTimeout(() => {
+      card.classList.toggle('flipped');
+      this.flipTimeout(card);
+    }, 1000);
   }
 }
