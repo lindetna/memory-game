@@ -1,5 +1,5 @@
 <%
-  image_url = [
+  images_url = [
     "ace_of_hearts.png",
     "2_of_hearts.png",
     "3_of_hearts.png",
@@ -16,13 +16,20 @@
   ]
 %>
 
-<button type="button" class="flip-card">
-  <div class="flip-card-inner">
-    <div class="flip-card-front">
-      <%= image_tag(asset_path("card-back"), alt: "Card back") %>
+<% images_url.each_with_index do |image, index| %>
+  <button
+    type="button"
+    class="flip-card"
+    data-game-target="card"
+    data-action="click->game#flipCard"
+  >
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <%= image_tag(asset_path("card-back"), alt: "Card back") %>
+      </div>
+      <div class="flip-card-back">
+        <%= image_tag(asset_path(image), alt: "Card #{index}") %>
+      </div>
     </div>
-    <div class="flip-card-back">
-      <%= image_tag(asset_path(image_url[value]), alt: "Card #{value}") %>
-    </div>
-  </div>
-</button>
+  </button>
+<% end %>
